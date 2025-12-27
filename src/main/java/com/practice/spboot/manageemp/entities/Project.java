@@ -1,5 +1,6 @@
 package com.practice.spboot.manageemp.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.util.CollectionUtils;
@@ -24,6 +25,7 @@ public class Project {
     private String projectDesc;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.PERSIST)
+    @JsonIgnore
     private List<Employee> employeeList;
 
     public void setEmployeeList(List<Employee> empList) {
