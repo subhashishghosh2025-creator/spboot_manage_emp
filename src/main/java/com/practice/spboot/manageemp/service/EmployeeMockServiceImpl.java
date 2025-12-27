@@ -15,17 +15,24 @@ public class EmployeeMockServiceImpl implements EmployeeService {
 
     static {
 
+        int empid = 0;
+        int projectid = 0;
+        int addressid = 0;
+
         Employee e1 = new Employee();
+        e1.setEmpId(++empid);
         e1.setFirstName("Subhashsih");
         e1.setLastName("Ghosh");
         e1.setAge(38);
         e1.setSalary(10500.50);
 
         Address a1 = new Address();
+        a1.setAddressId(++addressid);
         a1.setCity("Bangalore");
         a1.setCountry("India");
 
         Project p1 = new Project();
+        p1.setProjectId(++projectid);
         p1.setProjectName("Google Cloud Upgrade");
         p1.setProjectDesc("To upgrade google cloud with Gen AI features");
 
