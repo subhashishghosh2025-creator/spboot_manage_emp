@@ -33,6 +33,8 @@ public class EmployeeMockServiceImpl implements EmployeeService {
         e1.setAddress(a1);
 
         p1.setEmployeeList(List.of(e1));
+
+        empList.add(e1);
     }
 
     //Create
