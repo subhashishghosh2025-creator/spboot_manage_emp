@@ -2,7 +2,9 @@ package com.practice.spboot.manageemp.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,4 +25,11 @@ public class Project {
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.PERSIST)
     private List<Employee> employeeList;
+
+    public void setEmployeeList(List<Employee> empList) {
+        if (CollectionUtils.isEmpty(employeeList)) {
+            employeeList = new ArrayList<>();
+        }
+        employeeList.addAll(empList);
+    }
 }
