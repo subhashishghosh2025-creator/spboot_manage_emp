@@ -61,4 +61,41 @@ public class ManageEmployeeController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
     }
+
+    @RequestMapping(path = "/employees/employee/add", method = RequestMethod.POST)
+    public ResponseEntity<Employee> addEmployee(@RequestBody Employee employeeToBeAdded) {
+
+        Employee employee = employeeService.addEmployee(employeeToBeAdded);
+
+        if (employee != null) {
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+
+    @RequestMapping(path = "/employees/employee/update", method = RequestMethod.PUT)
+    public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employeeToBeUpdated) {
+
+        Employee employee = employeeService.updateEmployee(employeeToBeUpdated);
+
+        if (employee != null) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+
+    @RequestMapping(path = "/employees/employee/delete/{empId}", method = RequestMethod.DELETE)
+    public ResponseEntity<Employee> deleteEmployee(@PathVariable("empId") int emmId) {
+
+        try {
+            employeeService.deleteEmployee(emmId);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
 }

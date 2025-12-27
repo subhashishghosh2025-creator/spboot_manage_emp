@@ -14,6 +14,8 @@ public class Address {
     @Column(name = "address_id")
     private int addressId;
 
+    private String addressLine;
+
     private String city;
 
     private String country;

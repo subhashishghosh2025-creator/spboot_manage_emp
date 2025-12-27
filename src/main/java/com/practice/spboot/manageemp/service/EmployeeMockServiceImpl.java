@@ -6,18 +6,20 @@ import com.practice.spboot.manageemp.entities.Project;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class EmployeeMockServiceImpl implements EmployeeService {
 
     private static List<Employee> empList = new ArrayList<>();
+    private static Set<Project> projects = new HashSet<>();
+    static int empid = 0;
+    static int projectid = 0;
+    static int addressid = 0;
 
     static {
-
-        int empid = 0;
-        int projectid = 0;
-        int addressid = 0;
 
         Employee e1 = new Employee();
         e1.setEmpId(++empid);
@@ -28,6 +30,7 @@ public class EmployeeMockServiceImpl implements EmployeeService {
 
         Address a1 = new Address();
         a1.setAddressId(++addressid);
+        a1.setAddressLine("B21, ChurchStreet");
         a1.setCity("Bangalore");
         a1.setCountry("India");
 
@@ -35,6 +38,7 @@ public class EmployeeMockServiceImpl implements EmployeeService {
         p1.setProjectId(++projectid);
         p1.setProjectName("Google Cloud Upgrade");
         p1.setProjectDesc("To upgrade google cloud with Gen AI features");
+        projects.add(p1);
 
         e1.setProject(p1);
         e1.setAddress(a1);
@@ -46,6 +50,27 @@ public class EmployeeMockServiceImpl implements EmployeeService {
 
     //Create
     public Employee addEmployee(Employee employeeToBeAdded) {
+        Project prjFromInp = employeeToBeAdded.getProject();
+
+        System.out.println("projects size : " + projects.size());
+        Project checkProjectInSet = projects.stream().filter(prjFromSet -> prjFromSet.getProjectName().equals(prjFromInp.getProjectName())).findFirst().orElse(null);
+
+        System.out.println("prjFromInp : " + prjFromInp.getProjectName());
+
+        if (checkProjectInSet != null) {
+            System.out.println("checkProjectInSet name" + checkProjectInSet.getProjectName());
+            prjFromInp.setProjectId(checkProjectInSet.getProjectId());
+        } else {
+            prjFromInp.setProjectId(++projectid);
+            projects.add(prjFromInp);
+        }
+        //-----------
+        Address addressFromInp = employeeToBeAdded.getAddress();
+        addressFromInp.setAddressId(++addressid);
+
+        employeeToBeAdded.setProject(prjFromInp);
+        employeeToBeAdded.setAddress(addressFromInp);
+        employeeToBeAdded.setEmpId(++empid);
         empList.add(employeeToBeAdded);
         return employeeToBeAdded;
     }
