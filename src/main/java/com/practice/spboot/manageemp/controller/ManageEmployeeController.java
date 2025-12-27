@@ -16,7 +16,8 @@ import java.util.List;
 public class ManageEmployeeController {
 
     @Autowired
-    @Qualifier("employeeMockServiceImpl")
+    //@Qualifier("employeeMockServiceImpl")
+    @Qualifier("employeeDBServiceImpl")
     private EmployeeService employeeService;
 
     @RequestMapping(path = "/testemp", method = RequestMethod.GET)

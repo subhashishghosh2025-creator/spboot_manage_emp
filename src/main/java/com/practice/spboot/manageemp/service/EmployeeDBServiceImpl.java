@@ -1,5 +1,7 @@
 package com.practice.spboot.manageemp.service;
 
+import com.practice.spboot.manageemp.entities.Address;
+import com.practice.spboot.manageemp.entities.Project;
 import com.practice.spboot.manageemp.repository.AddressRepository;
 import com.practice.spboot.manageemp.repository.EmployeeRepository;
 import com.practice.spboot.manageemp.repository.ProjectRepository;
@@ -23,6 +25,14 @@ public class EmployeeDBServiceImpl implements EmployeeService {
 
     //Create
     public Employee addEmployee(Employee employeeToBeAdded) {
+        Project project = employeeToBeAdded.getProject();
+        Address address = employeeToBeAdded.getAddress();
+
+        Project projectFromDB = projectRepository.findByProjectName(employeeToBeAdded.getProject().getProjectName());
+        if (projectFromDB != null) {
+            employeeToBeAdded.setProject(projectFromDB);
+        }
+
         return employeeRepository.save(employeeToBeAdded);
     }
 
